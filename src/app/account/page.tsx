@@ -1,8 +1,8 @@
-import styles from './page.module.css'
+import './page.module.css'
 
 export default function Account() {
-  return (
-    <main className={styles.main}>
-    </main>
-  )
+    return <div>
+        <main>
+        </main>
+    </div>
 }

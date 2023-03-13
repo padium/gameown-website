@@ -1,15 +1,14 @@
 import './page.module.css'
 import {Container} from "@mui/material"
-import React from "react"
-import SignUp from "../../../components/auth/signup"
-import HeadMenu from "../../../components/head-menu"
+import SignIn from "../../../components/auth/signin"
 import Footer from "../../../components/footer"
+import HeadMenu from "../../../components/head-menu"
 
-export default function Register() {
+export default function Login() {
     return <div>
         <HeadMenu/>
         <Container component="main">
-            <SignUp/>
+            <SignIn/>
         </Container>
         <Footer/>
     </div>
