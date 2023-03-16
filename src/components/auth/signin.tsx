@@ -1,20 +1,27 @@
 import {Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography} from "@mui/material"
-import React from "react"
+import React, {useState} from "react"
 import {SocialIcon} from "react-social-icons"
 import {Ico, Logo} from "../../resources"
 import {useNavigate} from "react-router"
 import Path from "../../routes/path.enum"
+import {LoginRequest} from "@padium/sso"
+import ssoClient from "../../clients/sso.client"
+import {isEmpty, isNull} from "@d-lab/common-kit"
 
 export default function SignIn() {
     const navigate = useNavigate()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [remember, setRemember] = useState(true)
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+        const request: LoginRequest = {
+            email: email,
+            password: password,
+            shortSession: remember
+        }
+        await ssoClient.auth.login(request)
     };
 
     return (
@@ -33,7 +40,7 @@ export default function SignIn() {
                     <Button className="w-full mt-2" variant="outlined">
                         <img className="w-[20px] h-auto mr-2" src={Ico.Google} alt="google"/> Sign in with Google</Button>
                     <Button className="w-full mt-2" variant="outlined">
-                        <SocialIcon className="mr-2" network="discord" style={{ height: 20, width: 20 }}/> Sign in with Discord
+                        <SocialIcon className="mr-2" network="discord" style={{height: 20, width: 20}}/> Sign in with Discord
                     </Button>
                 </Grid>
                 <Box component="form" className="mt-1" onSubmit={handleSubmit} noValidate>
@@ -46,6 +53,7 @@ export default function SignIn() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        onChange={(e)=> setEmail(e.target.value)}
                         autoFocus
                         inputProps={{
                             style: {
@@ -63,6 +71,7 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={(e)=> setPassword(e.target.value)}
                         inputProps={{
                             style: {
                                 padding: 14
@@ -70,14 +79,14 @@ export default function SignIn() {
                         }}
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary"/>}
-                        label="Remember me"
-                    />
+                        control={<Checkbox value="remember" checked={remember} color="primary" onChange={(e)=> setRemember(e.target.checked)}/>}
+                        label="Remember me"/>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         className="mt-3 mb-2"
+                        disabled={isEmpty(email) || isEmpty(password)}
                     >
                         Sign In
                     </Button>
