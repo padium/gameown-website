@@ -6,7 +6,7 @@ import {useNavigate} from "react-router"
 import Path from "../../routes/path.enum"
 import {LoginRequest} from "@padium/sso"
 import ssoClient from "../../clients/sso.client"
-import {isEmpty, isNull} from "@d-lab/common-kit"
+import {isEmpty} from "@d-lab/common-kit"
 
 export default function SignIn() {
     const navigate = useNavigate()
@@ -22,6 +22,7 @@ export default function SignIn() {
             shortSession: remember
         }
         await ssoClient.auth.login(request)
+        navigate(Path.ACCOUNT)
     };
 
     return (
