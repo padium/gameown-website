@@ -1,6 +1,6 @@
 import './page.module.css'
 
-export default function Account() {
+export default function Store() {
     return <div>
         <main>
         </main>
