@@ -4,6 +4,7 @@ import React, {useState} from "react"
 import {useNavigate} from "react-router"
 import UserSession from "../utils/storage/user-session"
 import {Logo} from "../resources"
+import AccountMenu from "./auth/account-menu"
 
 export default function HeadMenu() {
     const navigate = useNavigate()
@@ -15,7 +16,7 @@ export default function HeadMenu() {
     </Stack>
 
     const displayAccount = <Stack direction="row" spacing={1} justifyContent="end">
-        <Button variant="contained" onClick={() => navigate(Path.DASHBOARD)}>Account</Button>
+        <AccountMenu/>
     </Stack>
 
     return (

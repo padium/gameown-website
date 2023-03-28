@@ -35,7 +35,7 @@ export default function SignUp() {
             verificationCode: parseInt(verificationCode)
         }
         await ssoClient.auth.register(request)
-        navigate(Path.DASHBOARD)
+        navigate(Path.HOME)
     }
 
     const signUpForm = <Box component="form" noValidate onSubmit={submitSignupForm} sx={{mt: 3}}>

@@ -22,7 +22,7 @@ export default function SignIn() {
             shortSession: remember
         }
         await ssoClient.auth.login(request)
-        navigate(Path.DASHBOARD)
+        navigate(Path.HOME)
     };
 
     return (
