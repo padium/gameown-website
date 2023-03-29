@@ -51,7 +51,6 @@ function PublisherPage() {
 
     const updatePublisher = <>
         <Grid item xs={12}>
-            <Typography>Name</Typography>
             <TextField
                 className="mt-5"
                 margin="normal"
@@ -60,13 +59,9 @@ function PublisherPage() {
                 label="Publisher name"
                 name="name"
                 autoComplete="name"
+                sx={{margin: "10px"}}
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                inputProps={{
-                    style: {
-                        padding: 14
-                    }
-                }}
             />
         </Grid>
         <Grid item xs={12}>
@@ -79,19 +74,40 @@ function PublisherPage() {
                 previewWidth="100%"
             />
         </Grid>
-        <Grid item xs={12}>
-            <Typography>Twitter URL</Typography>
-            <TextField value={twitterUrl} onChange={(e) => setTwitterUrl(e.target.value)}/>
-            <Typography>Website URL</Typography>
-            <TextField value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)}/>
+        <Grid container xs={12}>
+            <Grid item xs={4}>
+                <TextField
+                    label="Twitter URL"
+                    value={twitterUrl}
+                    sx={{margin: "10px"}}
+                    onChange={(e) => setTwitterUrl(e.target.value)}/>
+            </Grid>
+            <Grid item xs={4}>
+                <TextField
+                    label="Website URL"
+                    sx={{margin: "10px"}}
+                    value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)}/>
+            </Grid>
         </Grid>
-        <Grid item xs={12}>
-            <Typography>Logo URL</Typography>
-            <TextField value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)}/>
-            <Typography>Image URL</Typography>
-            <TextField value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
-            <Typography>Banner URL</Typography>
-            <TextField value={bannerUrl} onChange={(e) => setBannerUrl(e.target.value)}/>
+        <Grid container xs={12}>
+            <Grid item xs={4}>
+                <TextField
+                    label="Logo URL"
+                    sx={{margin: "10px"}}
+                    value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)}/>
+            </Grid>
+            <Grid item xs={4}>
+                <TextField
+                    label="Image URL"
+                    sx={{margin: "10px"}}
+                    value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
+            </Grid>
+            <Grid item xs={4}>
+                <TextField
+                    label="Banner URL"
+                    sx={{margin: "10px"}}
+                    value={bannerUrl} onChange={(e) => setBannerUrl(e.target.value)}/>
+            </Grid>
         </Grid>
         <Grid item xs={12}>
             <Button
@@ -101,7 +117,7 @@ function PublisherPage() {
                 onClick={handleSubmit}
                 disabled={isEmpty(name) || isEmpty(description)}
             >
-                {isNotNull(publisher)? "Save" : "Create" }
+                {isNotNull(publisher) ? "Save" : "Create"}
             </Button>
         </Grid>
     </>
