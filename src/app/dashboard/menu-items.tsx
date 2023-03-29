@@ -77,14 +77,14 @@ export const menu: MenuCategory[] = [
                 target: null,
                 children: [
                     {
-                        id: 102,
+                        id: 204,
                         icon: null,
                         title: "new Game",
                         target: Path.DASHBOARD_P_GAME_NEW,
                         children: []
                     },
                     {
-                        id: 102,
+                        id: 205,
                         icon: null,
                         title: "My Games",
                         target: Path.DASHBOARD_P_GAMES,

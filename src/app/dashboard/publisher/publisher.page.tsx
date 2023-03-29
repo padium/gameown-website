@@ -1,8 +1,121 @@
 import Dashboard from "../page"
+import React, {useEffect, useState} from "react"
+import {PublisherDto} from "@padium/core"
+import apiClient from "../../../clients/padium.client"
+import UserSession from "../../../utils/storage/user-session"
+import {Button, Grid, TextField, Typography} from "@mui/material"
+import {isEmpty, isNotNull} from "@d-lab/common-kit"
+import MarkdownEditor from "@uiw/react-markdown-editor"
 
 function PublisherPage() {
-    return <div>Publisher page</div>
+    const [publisher, setPublisher] = useState<PublisherDto>()
+    const [startCreate, setStartCreate] = useState(false)
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [websiteUrl, setWebsiteUrl] = useState("")
+    const [twitterUrl, setTwitterUrl] = useState("")
+    const [logoUrl, setLogoUrl] = useState("")
+    const [imageUrl, setImageUrl] = useState("")
+    const [bannerUrl, setBannerUrl] = useState("")
+
+    const resetPublisher = (publisher: PublisherDto) => {
+        setPublisher(publisher)
+        setName(publisher.name)
+        setDescription(publisher.description)
+        setWebsiteUrl(publisher.websiteUrl || "")
+        setTwitterUrl(publisher.twitterUrl || "")
+        setLogoUrl(publisher.logoUrl || "")
+        setImageUrl(publisher.imageUrl || "")
+        setBannerUrl(publisher.bannerUrl || "")
+    }
+
+    useEffect(() => {
+        apiClient.publisher.list({userId: UserSession.getCurrentUserId()?.toString() || undefined, page: "0", pageSize: "100"})
+            .then(response => {
+                if (response.publishers.length > 0) {
+                    resetPublisher(response.publishers[0])
+                }
+            })
+    }, [])
+
+    const handleSubmit = async () => {
+        if (isNotNull(publisher)) {
+            console.log("publisher!.id", publisher!.id)
+            const resp = await apiClient.publisher.update(publisher!.id, {name, description, websiteUrl, twitterUrl, logoUrl, imageUrl, bannerUrl})
+            resetPublisher(resp)
+        } else {
+            const resp = await apiClient.publisher.create({name, description, websiteUrl, twitterUrl, logoUrl, imageUrl, bannerUrl})
+            resetPublisher(resp)
+        }
+    }
+
+    const updatePublisher = <>
+        <Grid item xs={12}>
+            <Typography>Name</Typography>
+            <TextField
+                className="mt-5"
+                margin="normal"
+                required
+                id="name"
+                label="Publisher name"
+                name="name"
+                autoComplete="name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                inputProps={{
+                    style: {
+                        padding: 14
+                    }
+                }}
+            />
+        </Grid>
+        <Grid item xs={12}>
+            <Typography>Description</Typography>
+            <MarkdownEditor
+                style={{height: "200px"}}
+                value={description}
+                onChange={setDescription}
+                enableScroll={true}
+                previewWidth="100%"
+            />
+        </Grid>
+        <Grid item xs={12}>
+            <Typography>Twitter URL</Typography>
+            <TextField value={twitterUrl} onChange={(e) => setTwitterUrl(e.target.value)}/>
+            <Typography>Website URL</Typography>
+            <TextField value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)}/>
+        </Grid>
+        <Grid item xs={12}>
+            <Typography>Logo URL</Typography>
+            <TextField value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)}/>
+            <Typography>Image URL</Typography>
+            <TextField value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
+            <Typography>Banner URL</Typography>
+            <TextField value={bannerUrl} onChange={(e) => setBannerUrl(e.target.value)}/>
+        </Grid>
+        <Grid item xs={12}>
+            <Button
+                fullWidth
+                variant="contained"
+                className="mt-3 mb-2"
+                onClick={handleSubmit}
+                disabled={isEmpty(name) || isEmpty(description)}
+            >
+                {isNotNull(publisher)? "Save" : "Create" }
+            </Button>
+        </Grid>
+    </>
+
+    const createPublisher = <>
+        {!startCreate && <Typography>Register a new Publisher to start publishing games.</Typography>}
+        {!startCreate && <Button onClick={() => setStartCreate(true)}>start</Button>}
+        {startCreate && updatePublisher}
+    </>
+
+    return <Grid container>
+        {isNotNull(publisher) ? updatePublisher : createPublisher}
+    </Grid>
 }
 
-const page =() => <Dashboard content={<PublisherPage/>}/>
+const page = () => <Dashboard content={<PublisherPage/>}/>
 export default page

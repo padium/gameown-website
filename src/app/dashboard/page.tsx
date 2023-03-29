@@ -8,7 +8,7 @@ import {ReactNode} from "react"
 export interface DashboardProps {
     content: ReactNode
 }
-
+//background: "rgb(244, 248, 252)"
 export default function Dashboard(props: DashboardProps) {
     return <div>
         <HeadMenu/>
@@ -18,7 +18,7 @@ export default function Dashboard(props: DashboardProps) {
             </Grid>
             <Grid item xs>
                 <Container component="main">
-                    <Paper elevation={0} sx={{background: "rgb(244, 248, 252)", width: "100%", height: "100%"}}>
+                    <Paper elevation={1} sx={{width: "100%", padding: "20px"}}>
                         {props.content}
                     </Paper>
                 </Container>

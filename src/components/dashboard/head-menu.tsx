@@ -8,6 +8,10 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import {Button} from "@mui/material"
+import Path from "../../routes/path.enum"
+import {Logo} from "../../resources"
+import {useNavigate} from "react-router"
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -60,19 +64,16 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 //     </Search>
 // </Box>
 export default function HeadMenu() {
+    const navigate = useNavigate()
 
     return (
         <Box sx={{flexGrow: 1}}>
             <Toolbar>
                 <Box sx={{width: '228px'}}>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{display: {xs: 'none', sm: 'block'}}}
-                    >
-                        Dashboard
-                    </Typography>
+                    <Button variant="text" onClick={() => navigate(Path.HOME)}>
+                        <img className="w-8 h-auto mr-1" src={Logo} alt="logo"/>
+                        <span className="text-xl">Padium</span>
+                    </Button>
                 </Box>
                 <Box sx={{flexGrow: "1"}}/>
                 <Box>

@@ -34,7 +34,7 @@ export default function NavMenu(props: NavMenuProps) {
                             {isNotNull(category.icon) ? category.icon : null}
                             {isNotNull(category.title) ? <Typography>{category.title}</Typography> : null}
                         </Stack>
-                        <NavMenuItem items={category.items}/>
+                        <NavMenuItem key={category.id} items={category.items}/>
                         {index < props.categories.length - 1 ? <Divider/> : null}
                     </>)
                 })
