@@ -1,4 +1,4 @@
-import {Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography} from "@mui/material"
+import {Box, Button, Checkbox, CircularProgress, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography} from "@mui/material"
 import React, {useState} from "react"
 import {Logo} from "../../resources"
 import Path from "../../routes/path.enum"
@@ -9,6 +9,7 @@ import {useNavigate} from "react-router"
 
 export default function SignUp() {
     const navigate = useNavigate()
+    const [submit, setSubmit] = useState(false)
     const [step, setStep] = useState(0)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -21,7 +22,9 @@ export default function SignUp() {
         const request: EmailSendCodeRequest = {
             email: email
         }
+        setSubmit(true)
         await ssoClient.auth.sendCodeForRegister(request)
+        setSubmit(false)
         setStep(1)
     }
 
@@ -34,7 +37,9 @@ export default function SignUp() {
             newsletterSubscription: newsletterSubscription,
             verificationCode: parseInt(verificationCode)
         }
+        setSubmit(true)
         await ssoClient.auth.register(request)
+        setSubmit(false)
         navigate(Path.HOME)
     }
 
@@ -101,6 +106,7 @@ export default function SignUp() {
             sx={{mt: 3, mb: 2}}
             disabled={isEmpty(email) || isEmpty(password) || isEmpty(passwordConfirm) || password != passwordConfirm}
         >Sign Up
+            {submit && <CircularProgress color="inherit"/>}
         </Button>
         <Grid container justifyContent="flex-end">
             <Grid item>
@@ -136,7 +142,9 @@ export default function SignUp() {
             variant="contained"
             sx={{mt: 3, mb: 2}}
             disabled={isEmpty(verificationCode)}
-        >Confirm Email
+        >
+            Confirm Email
+            {submit && <CircularProgress color="inherit"/>}
         </Button>
     </Box>
 

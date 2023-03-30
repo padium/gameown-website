@@ -3,18 +3,20 @@ import apiClient from "../../../../clients/padium.client"
 import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router"
 import Path from "../../../../routes/path.enum"
-import {Button, Grid, TextField, Typography} from "@mui/material"
+import {Button, CircularProgress, Grid, TextField, Typography} from "@mui/material"
 import {isEmpty, isNull} from "@d-lab/common-kit"
 import Loading from "../../../../components/dashboard/loading"
+import handleAuth from "../../../../utils/auth/auth-refresh"
 
 function NewGamePage() {
+    const [submit, setSubmit] = useState(false)
     const [loading, setLoading] = useState(true)
     const [name, setName] = useState("")
     const [identifier, setIdentifier] = useState("")
     const navigate = useNavigate()
 
     useEffect(() => {
-        apiClient.publisher.getOwn()
+        handleAuth(() => apiClient.publisher.getOwn())
             .then(response => {
                 if (isNull(response.publisher)) {
                     navigate(Path.DASHBOARD_PUBLISHER)
@@ -22,13 +24,18 @@ function NewGamePage() {
                     setLoading(false)
                 }
             })
+            .catch(error => {
+                console.error(error)
+                navigate(Path.DASHBOARD_P_GAMES)
+            })
     }, [])
 
-    const isValid = (): boolean => {
+    const isNotValid = (): boolean => {
         return isEmpty(name) || isEmpty(identifier)
     }
     const handleSubmit = async () => {
-        await apiClient.game.create({
+        setSubmit(true)
+        handleAuth(() => apiClient.game.create({
             name,
             identifier,
             header: "",
@@ -43,8 +50,10 @@ function NewGamePage() {
             downloadUrl: null,
             ingamePayment: false,
             availableAt: null
+        })).then(game => {
+            setSubmit(false)
+            navigate(Path.DASHBOARD_P_GAME_EDIT.replace(":id", game.id.toString()))
         })
-        navigate(Path.DASHBOARD_P_GAMES)
     }
 
     if (loading) {
@@ -73,6 +82,7 @@ function NewGamePage() {
                 margin="normal"
                 required
                 label="identifier"
+                autoComplete="identifier"
                 onChange={(e) => {
                     if (/[a-z-]$/.test(e.target.value)) {
                         setIdentifier(e.target.value)
@@ -84,11 +94,11 @@ function NewGamePage() {
         <Grid item xs={12}>
             <Button
                 variant="contained"
-                className="mt-3 mb-2"
                 onClick={handleSubmit}
-                disabled={isValid()}
+                disabled={isNotValid() || submit}
             >
                 Create
+                {submit && <CircularProgress color="inherit"/>}
             </Button>
         </Grid>
     </Grid>

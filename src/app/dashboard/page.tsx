@@ -16,7 +16,7 @@ export default function Dashboard(props: DashboardProps) {
             <Grid item xs={2}>
                 <NavMenu categories={menu}/>
             </Grid>
-            <Grid item xs>
+            <Grid item xs={10}>
                 <Container component="main">
                     <Paper elevation={1} sx={{width: "100%", padding: "20px"}}>
                         {props.content}

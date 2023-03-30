@@ -11,6 +11,7 @@ const DashboardPublisherPage = React.lazy(() => import("../app/dashboard/publish
 const DashboardPOperatorsPage = React.lazy(() => import("../app/dashboard/publisher/operators.page"))
 const DashboardPGamesPage = React.lazy(() => import("../app/dashboard/publisher/game/my-games.page"))
 const DashboardPNewGamePage = React.lazy(() => import("../app/dashboard/publisher/game/new-game.page"))
+const DashboardPEditGamePage = React.lazy(() => import("../app/dashboard/publisher/game/edit-game.page"))
 
 const routes: RoutePath[] = [
     {
@@ -59,6 +60,12 @@ const routes: RoutePath[] = [
         name: 'New Game',
         path: Path.DASHBOARD_P_GAME_NEW,
         component: DashboardPNewGamePage,
+        restrictedBy: {validate: AuthUtils.requireSession, redirectOnFailure: Path.LOGIN}
+    },
+    {
+        name: 'Edit Game',
+        path: Path.DASHBOARD_P_GAME_EDIT,
+        component: DashboardPEditGamePage,
         restrictedBy: {validate: AuthUtils.requireSession, redirectOnFailure: Path.LOGIN}
     }
 ]

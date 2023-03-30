@@ -1,4 +1,4 @@
-import {Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography} from "@mui/material"
+import {Box, Button, Checkbox, CircularProgress, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography} from "@mui/material"
 import React, {useState} from "react"
 import {SocialIcon} from "react-social-icons"
 import {Ico, Logo} from "../../resources"
@@ -10,6 +10,7 @@ import {isEmpty} from "@d-lab/common-kit"
 
 export default function SignIn() {
     const navigate = useNavigate()
+    const [submit, setSubmit] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [remember, setRemember] = useState(true)
@@ -21,7 +22,9 @@ export default function SignIn() {
             password: password,
             shortSession: remember
         }
+        setSubmit(true)
         await ssoClient.auth.login(request)
+        setSubmit(false)
         navigate(Path.HOME)
     };
 
@@ -86,10 +89,10 @@ export default function SignIn() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        className="mt-3 mb-2"
                         disabled={isEmpty(email) || isEmpty(password)}
                     >
                         Sign In
+                        {submit && <CircularProgress color="inherit"/>}
                     </Button>
                     <Grid container>
                         <Grid item xs>

@@ -14,8 +14,16 @@ export const lightTheme = createTheme({
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    marginTop: "5px",
-                    marginBottom: "5px",
+                    marginTop: "5px !important",
+                    marginBottom: "5px !important",
+                }
+            }
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    marginTop: "5px !important",
+                    marginBottom: "5px !important",
                 }
             }
         },

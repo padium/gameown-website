@@ -2,16 +2,17 @@ import Dashboard from "../page"
 import React, {useEffect, useState} from "react"
 import {PublisherDto} from "@padium/core"
 import apiClient from "../../../clients/padium.client"
-import {Button, Divider, Grid, Stack, TextField, Typography} from "@mui/material"
+import {Button, CircularProgress, Divider, Grid, Stack, TextField, Typography} from "@mui/material"
 import {isEmpty, isNotNull} from "@d-lab/common-kit"
 import MarkdownEditor from "@uiw/react-markdown-editor"
 import Loading from "../../../components/dashboard/loading"
 import TwitterIcon from '@mui/icons-material/Twitter'
 import LanguageIcon from '@mui/icons-material/Language';
 import ImageIcon from '@mui/icons-material/Image';
-import {Image} from "@mui/icons-material"
+import handleAuth from "../../../utils/auth/auth-refresh"
 
 function PublisherPage() {
+    const [submit, setSubmit] = useState(false)
     const [loading, setLoading] = useState(true)
     const [publisher, setPublisher] = useState<PublisherDto>()
     const [startCreate, setStartCreate] = useState(false)
@@ -37,7 +38,7 @@ function PublisherPage() {
     }
 
     useEffect(() => {
-        apiClient.publisher.getOwn()
+        handleAuth(() => apiClient.publisher.getOwn())
             .then(response => {
                 if (isNotNull(response.publisher)) {
                     resetPublisher(response.publisher!)
@@ -46,10 +47,14 @@ function PublisherPage() {
             })
     }, [])
 
+    const isNotValid = (): boolean => {
+       return isEmpty(name) || isEmpty(description)
+    }
+
     const handleSubmit = async () => {
+        setSubmit(true)
         if (isNotNull(publisher)) {
-            console.log("publisher!.id", publisher!.id)
-            const resp = await apiClient.publisher.update(publisher!.id, {
+            handleAuth(() => apiClient.publisher.update(publisher!.id, {
                 name,
                 identifier,
                 description,
@@ -58,11 +63,24 @@ function PublisherPage() {
                 logoUrl,
                 imageUrl,
                 bannerUrl
+            })).then(resp => {
+                resetPublisher(resp)
+                setSubmit(false)
             })
-            resetPublisher(resp)
         } else {
-            const resp = await apiClient.publisher.create({name, identifier, description, websiteUrl, twitterUrl, logoUrl, imageUrl, bannerUrl})
-            resetPublisher(resp)
+            handleAuth(() => apiClient.publisher.create({
+                name,
+                identifier,
+                description,
+                websiteUrl,
+                twitterUrl,
+                logoUrl,
+                imageUrl,
+                bannerUrl
+            })).then(resp => {
+                resetPublisher(resp)
+                setSubmit(false)
+            })
         }
     }
 
@@ -70,13 +88,11 @@ function PublisherPage() {
         <Grid item xs={12}>
             <Typography>Publisher name:</Typography>
             <TextField
-                className="mt-5"
                 margin="normal"
                 required
                 label="name"
                 name="name"
                 autoComplete="name"
-                sx={{margin: "10px"}}
                 onChange={(e) => setName(e.target.value)}
                 value={name}
             />
@@ -84,12 +100,10 @@ function PublisherPage() {
         <Grid item xs={12}>
             <Typography>Publisher identifier:</Typography>
             <TextField
-                className="mt-5"
                 margin="normal"
                 required
                 label="letters separated by '-'"
                 name="identifier"
-                sx={{margin: "10px"}}
                 onChange={(e) => {
                     if (isEmpty(e.target.value) || /[a-z-]$/.test(e.target.value)) {
                         setIdentifier(e.target.value)
@@ -179,11 +193,11 @@ function PublisherPage() {
             <Button
                 fullWidth
                 variant="contained"
-                className="mt-3 mb-2"
                 onClick={handleSubmit}
-                disabled={isEmpty(name) || isEmpty(description)}
+                disabled={isNotValid() || submit}
             >
                 {isNotNull(publisher) ? "Save" : "Create"}
+                {submit && <CircularProgress color="inherit"/>}
             </Button>
         </Grid>
     </>
