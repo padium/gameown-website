@@ -1,28 +1,28 @@
 import Dashboard from "../page"
 import React, {useEffect, useState} from "react"
 import handleAuth from "../../../utils/auth/auth-refresh"
-import apiClient from "../../../clients/padium.client"
-import {isNull} from "@d-lab/common-kit"
 import Path from "../../../routes/path.enum"
 import Loading from "../../../components/dashboard/loading"
 import {useNavigate} from "react-router"
+import ssoClient from "../../../clients/sso.client"
+import {isAllowed, Role} from "@padium/sso"
 
-function OperatorsPage() {
+function AdminUsersPage() {
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
-        handleAuth(() => apiClient.publisher.getOwn())
+        handleAuth(() => ssoClient.role.me())
             .then(response => {
-                if (isNull(response.publisher)) {
-                    navigate(Path.DASHBOARD_PUBLISHER)
+                if (!isAllowed(response.role, Role.Moderator)) {
+                    navigate(Path.DASHBOARD_PROFILE)
                 } else {
                     setLoading(false)
                 }
             })
             .catch(error => {
                 console.error(error)
-                navigate(Path.DASHBOARD_PUBLISHER)
+                navigate(Path.DASHBOARD_PROFILE)
             })
     }, [])
 
@@ -30,8 +30,8 @@ function OperatorsPage() {
         return <Loading/>
     }
 
-    return <div>Operators page</div>
+    return <div>AdminUsers page</div>
 }
 
-const page =() => <Dashboard content={<OperatorsPage/>}/>
+const page =() => <Dashboard content={<AdminUsersPage/>}/>
 export default page

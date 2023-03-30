@@ -7,6 +7,8 @@ import PaymentIcon from '@mui/icons-material/Payment'
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BusinessIcon from '@mui/icons-material/Business';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 export const menu: MenuCategory[] = [
     {
@@ -59,39 +61,78 @@ export const menu: MenuCategory[] = [
             {
                 id: 201,
                 icon: <BusinessIcon/>,
-                title: "Publisher",
+                title: "Become a Publisher",
                 target: Path.DASHBOARD_PUBLISHER,
                 children: []
-            },
-            {
-                id: 202,
-                icon: <SupervisorAccountIcon/>,
-                title: "Operators",
-                target: Path.DASHBOARD_P_OPERATORS,
-                children: []
-            },
-            {
-                id: 203,
-                icon: <SportsEsportsIcon/>,
-                title: "Games",
-                target: null,
-                children: [
-                    {
-                        id: 204,
-                        icon: null,
-                        title: "new Game",
-                        target: Path.DASHBOARD_P_GAME_NEW,
-                        children: []
-                    },
-                    {
-                        id: 205,
-                        icon: null,
-                        title: "My Games",
-                        target: Path.DASHBOARD_P_GAMES,
-                        children: []
-                    }
-                ]
             }
         ]
     }
 ]
+
+export const menuPublisher: MenuCategory = {
+    id: 200,
+    icon: null,
+    title: "Game Management",
+    items: [
+        {
+            id: 201,
+            icon: <BusinessIcon/>,
+            title: "Publisher",
+            target: Path.DASHBOARD_PUBLISHER,
+            children: []
+        },
+        {
+            id: 202,
+            icon: <SupervisorAccountIcon/>,
+            title: "Operators",
+            target: Path.DASHBOARD_P_OPERATORS,
+            children: []
+        },
+        {
+            id: 203,
+            icon: <SportsEsportsIcon/>,
+            title: "Games",
+            target: null,
+            children: [
+                {
+                    id: 204,
+                    icon: null,
+                    title: "new Game",
+                    target: Path.DASHBOARD_P_GAME_NEW,
+                    children: []
+                },
+                {
+                    id: 205,
+                    icon: null,
+                    title: "My Games",
+                    target: Path.DASHBOARD_P_GAMES,
+                    children: []
+                }
+            ]
+        }
+    ]
+}
+
+export const menuAdmin: MenuCategory = {
+    id: 300,
+    icon: null,
+    title: "Admin Management",
+    items: [
+        {
+            id: 201,
+            icon: <ManageAccountsIcon/>,
+            title: "Users",
+            target: Path.DASHBOARD_ADMIN_USERS,
+            children: []
+        },
+        {
+            id: 202,
+            icon: <SmartToyIcon/>,
+            title: "Game Approval",
+            target: Path.DASHBOARD_ADMIN_GAMES,
+            children: []
+        }
+    ]
+}
+
+
