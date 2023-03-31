@@ -13,6 +13,8 @@ enum Path {
     DASHBOARD_P_GAME_EDIT = "/dashboard/publisher/game/:id",
     DASHBOARD_ADMIN_GAMES = "/dashboard/admin/games",
     DASHBOARD_ADMIN_USERS = "/dashboard/admin/users",
+    PUBLIC_GAME = "/games/:identifier",
+    PUBLIC_PUBLISHER = "/games/:identifier",
     STORE = "/store",
     COMMUNITY = "/community",
     INVENTORY = "/inventory",
