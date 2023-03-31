@@ -1,11 +1,10 @@
 import React, {useState} from "react"
-import {Button, Checkbox, FormControlLabel, Grid, TextField, Typography} from "@mui/material"
+import {Button, Checkbox, FormControlLabel, Grid, Stack, TextField, Typography} from "@mui/material"
 import {GameDto} from "@padium/core"
 import {isNull} from "@d-lab/common-kit"
 
 export default function EditGameRelease(props: { game: GameDto, onSubmit: (game: GameDto) => void, onBack: () => void }) {
     const game = props.game
-    const [submit, setSubmit] = useState(false)
     const [downloadUrl, setDownloadUrl] = useState<string | null>(game.downloadUrl)
     const [ingamePayment, setIngamePayment] = useState(game.ingamePayment)
     const isNotValid = (): boolean => {
@@ -33,9 +32,10 @@ export default function EditGameRelease(props: { game: GameDto, onSubmit: (game:
             />
         </Grid>
         <Grid item xs={12}>
-            <FormControlLabel
-                control={<Checkbox value="remember" checked={ingamePayment} color="primary" onChange={(e) => setIngamePayment(e.target.checked)}/>}
-                label="Has in-game payment:"/>
+            <Stack direction="row" alignItems="center">
+                <Typography>Has in-game payment:</Typography>
+                <Checkbox value="remember" checked={ingamePayment} color="primary" onChange={(e) => setIngamePayment(e.target.checked)}/>
+            </Stack>
         </Grid>
         <Grid item xs={12}>
             <Button
