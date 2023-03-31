@@ -177,7 +177,6 @@ function AdminGamesPage() {
     if (isNotNull(error)) {
         return <FatError error={error!}/>
     }
-    console.log("GAMES", games)
     return <Grid container>
         <DataGrid
             rows={games}

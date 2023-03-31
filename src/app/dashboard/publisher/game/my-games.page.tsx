@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 import {useNavigate} from "react-router"
 import handleAuth from "../../../../utils/auth/auth-refresh"
 import apiClient from "../../../../clients/padium.client"
-import {Button, Grid, Stack} from "@mui/material"
+import {Button, Grid, Stack, Typography} from "@mui/material"
 import {DataGrid, GridColDef, GridValueGetterParams} from '@mui/x-data-grid'
 import {GameListDto} from "@padium/core"
 import {transformGameState} from "../../../../utils/pretify/game-state.pretify"
@@ -61,15 +61,26 @@ function MyGamesPage() {
         return <FatError error={error!}/>
     }
     return <Grid container>
-        <DataGrid
-            rows={games}
-            columns={columns}
-            paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
-            disableRowSelectionOnClick
-            loading={loading}
-            autoHeight
-        />
+        <Grid container alignItems="center" sx={{marginBottom: "20px"}}>
+            <Grid item>
+                <Typography>Publisher Games: </Typography>
+            </Grid>
+            <Grid item flex={1}/>
+            <Grid item>
+                <Button variant="outlined" onClick={() => navigate(Path.DASHBOARD_P_GAME_NEW)}>Release new Game</Button>
+            </Grid>
+        </Grid>
+        <Grid item xs={12}>
+            <DataGrid
+                rows={games}
+                columns={columns}
+                paginationModel={paginationModel}
+                onPaginationModelChange={setPaginationModel}
+                disableRowSelectionOnClick
+                loading={loading}
+                autoHeight
+            />
+        </Grid>
     </Grid>
 }
 

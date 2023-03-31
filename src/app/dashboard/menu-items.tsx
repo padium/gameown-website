@@ -92,23 +92,8 @@ export const menuPublisher: MenuCategory = {
             id: 203,
             icon: <SportsEsportsIcon/>,
             title: "Games",
-            target: null,
-            children: [
-                {
-                    id: 204,
-                    icon: null,
-                    title: "new Game",
-                    target: Path.DASHBOARD_P_GAME_NEW,
-                    children: []
-                },
-                {
-                    id: 205,
-                    icon: null,
-                    title: "My Games",
-                    target: Path.DASHBOARD_P_GAMES,
-                    children: []
-                }
-            ]
+            target: Path.DASHBOARD_P_GAMES,
+            children: []
         }
     ]
 }
