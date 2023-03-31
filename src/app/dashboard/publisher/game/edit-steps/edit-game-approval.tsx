@@ -10,7 +10,6 @@ import ImageIcon from "@mui/icons-material/Image"
 
 export default function EditGameApproval(props: { game: GameDto, onSubmit: (game: GameDto) => void }) {
     const game = props.game
-    const [submit, setSubmit] = useState(false)
     const [name, setName] = useState(game.name)
     const [identifier, setIdentifier] = useState(game.identifier)
     const [header, setHeader] = useState(game.header)
