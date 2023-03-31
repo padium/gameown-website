@@ -34,7 +34,7 @@ export default function NavMenuItem(props: NavMenuItemProps) {
                             <Collapse in={open[item.id]} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     {item.children.map(child => {
-                                        return <ListItemButton key={item.id} sx={{pl: 4}} onClick={() => onClick(child)}>
+                                        return <ListItemButton key={child.id} sx={{pl: 4}} onClick={() => onClick(child)}>
                                             <ListItemIcon>
                                                 {child.icon}
                                             </ListItemIcon>
