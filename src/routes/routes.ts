@@ -5,6 +5,7 @@ import routesDashboard from "./dashboard.route"
 import routesInventory from "./inventory.route"
 import routesMarket from "./market.route"
 import routesCommunity from "./community.route"
+import routesProfile from "./profile.route"
 
 const MainPage = React.lazy(() => import("../app/page"))
 const Page404 = React.lazy(() => import("../app/errors/404"))
@@ -16,7 +17,8 @@ const routes: RoutePath[] = [
     ...routesDashboard,
     ...routesInventory,
     ...routesMarket,
-    ...routesCommunity
+    ...routesCommunity,
+    ...routesProfile,
 ];
 
 export default routes
