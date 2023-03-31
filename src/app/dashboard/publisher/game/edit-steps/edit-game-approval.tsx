@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import {Button, Divider, Grid, Stack, TextField, Typography} from "@mui/material"
 import MarkdownEditor from "@uiw/react-markdown-editor"
 import {isEmpty} from "@d-lab/common-kit"
-import InputTags from "../../../../../components/inputs/input-tag"
+import InputTags from "../../../../../components/core/inputs/input-tag"
 import {GameDto} from "@padium/core"
 import TwitterIcon from "@mui/icons-material/Twitter"
 import LanguageIcon from "@mui/icons-material/Language"
@@ -171,7 +171,7 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 />
             </Stack>
             <Stack direction="row">
-                <Typography variant="caption">Recommended size 1400x350</Typography>
+                <Typography variant="caption">Recommended size 1400x300</Typography>
             </Stack>
             <Stack direction="row">
                 {bannerUrl && <img src={bannerUrl} width={700} height={175} alt="preview" style={{marginBottom: "10px"}}/>}
