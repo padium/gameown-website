@@ -31,7 +31,6 @@ const Tags = (props: { text: string, handleDelete: (text: string) => void }) => 
 export default function InputTags(props: { value: string[], onChange: (tags: string[]) => void }) {
     const [current, setCurrent] = useState("")
     const [tags, setTags] = useState<string[]>(props.value)
-    console.log("setup with ", props.value)
     const handleDelete = (value: string) => {
         const newTags = tags.filter((val) => val !== value)
         setTags(newTags)
