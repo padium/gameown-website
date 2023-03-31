@@ -24,8 +24,8 @@ export default function NavMenuItem(props: NavMenuItemProps) {
     return <List component="nav">
             {
                 props.items.map(item => {
-                    return (<>
-                        <ListItemButton key={item.id} onClick={() => onClick(item)}>
+                    return <div key={item.id}>
+                        <ListItemButton onClick={() => onClick(item)}>
                             {isNotNull(item.icon) ? <ListItemIcon>{item.icon}</ListItemIcon> : null}
                             <ListItemText primary={item.title}/>
                             {item.children.length > 0 ? (open[item.id] ? <ExpandLess/> : <ExpandMore/>) : null}
@@ -43,7 +43,7 @@ export default function NavMenuItem(props: NavMenuItemProps) {
                                     })}
                                 </List>
                             </Collapse> : null}
-                    </>)
+                    </div>
                 })
             }
         </List>

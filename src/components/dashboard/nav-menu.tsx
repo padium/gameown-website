@@ -29,14 +29,14 @@ export default function NavMenu(props: NavMenuProps) {
         <List component="nav">
             {
                 props.categories.map((category, index) => {
-                    return (<>
+                    return <div key={category.id}>
                         <Stack key={category.id + "_title"} className="mt-1 ml-3" direction="row" spacing={1}>
                             {isNotNull(category.icon) ? category.icon : null}
                             {isNotNull(category.title) ? <Typography>{category.title}</Typography> : null}
                         </Stack>
-                        <NavMenuItem key={category.id} items={category.items}/>
+                        <NavMenuItem items={category.items}/>
                         {index < props.categories.length - 1 ? <Divider/> : null}
-                    </>)
+                    </div>
                 })
             }
         </List>
