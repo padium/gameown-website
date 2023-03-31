@@ -5,10 +5,9 @@ import {isNull} from "@d-lab/common-kit"
 
 export default function EditGameListing(props: { game: GameDto, onSubmit: (game: GameDto) => void, onBack: () => void}) {
     const game = props.game
-    const [submit, setSubmit] = useState(false)
     const [option, setOption] = useState(0)
     const [price, setPrice] = useState<string | null>(game.price)
-    const [availableAt, setAvailableAt] = useState<string | null>(game.availableAt?.toISOString() || new Date().toISOString)
+    const [availableAt, setAvailableAt] = useState<string | null>(game.availableAt?.toISOString() || new Date().toISOString())
 
     const isNotValid = (): boolean => {
         switch (option) {
