@@ -12,8 +12,8 @@ const DashboardPOperatorsPage = React.lazy(() => import("../app/dashboard/publis
 const DashboardPGamesPage = React.lazy(() => import("../app/dashboard/publisher/game/my-games.page"))
 const DashboardPNewGamePage = React.lazy(() => import("../app/dashboard/publisher/game/new-game.page"))
 const DashboardPEditGamePage = React.lazy(() => import("../app/dashboard/publisher/game/edit-game.page"))
-const DashboardAdminGamesPage = React.lazy(() => import("../app/dashboard/admin/admin-games.page"))
-const DashboardAdminUsersPage = React.lazy(() => import("../app/dashboard/admin/admin-users.page"))
+const DashboardAdminGamesPage = React.lazy(() => import("../app/dashboard/admin/admin-games/page"))
+const DashboardAdminUsersPage = React.lazy(() => import("../app/dashboard/admin/admin-users/page"))
 
 const routes: RoutePath[] = [
     {

@@ -1,10 +1,10 @@
-import Dashboard from "../page"
+import Dashboard from "../../page"
 import React, {useEffect, useState} from "react"
-import handleAuth from "../../../utils/auth/auth-refresh"
-import Path from "../../../routes/path.enum"
-import Loading from "../../../components/dashboard/loading"
+import handleAuth from "../../../../utils/auth/auth-refresh"
+import Path from "../../../../routes/path.enum"
+import Loading from "../../../../components/dashboard/loading"
 import {useNavigate} from "react-router"
-import ssoClient from "../../../clients/sso.client"
+import ssoClient from "../../../../clients/sso.client"
 import {isAllowed, Role} from "@padium/sso"
 
 function AdminUsersPage() {

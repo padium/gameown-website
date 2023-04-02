@@ -1,27 +1,43 @@
-import Dashboard from "../page"
+import Dashboard from "../../page"
 import React, {useEffect, useState} from "react"
-import handleAuth from "../../../utils/auth/auth-refresh"
-import Path from "../../../routes/path.enum"
+import handleAuth from "../../../../utils/auth/auth-refresh"
+import Path from "../../../../routes/path.enum"
 import {useNavigate} from "react-router"
-import ssoClient from "../../../clients/sso.client"
+import ssoClient from "../../../../clients/sso.client"
 import {isAllowed, Role} from "@padium/sso"
 import {GameListDto, GameState} from "@padium/core"
-import apiClient from "../../../clients/padium.client"
+import apiClient from "../../../../clients/padium.client"
 import {DataGrid, GridColDef, GridValueGetterParams} from "@mui/x-data-grid"
-import {transformGameState} from "../../../utils/pretify/game-state.pretify"
-import {Button, CircularProgress, Grid} from "@mui/material"
+import {transformGameState} from "../../../../utils/pretify/game-state.pretify"
+import {Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material"
 import PendingIcon from '@mui/icons-material/Pending';
 import PreviewIcon from "@mui/icons-material/Preview"
 import {HttpError, isNotNull} from "@d-lab/common-kit"
-import {FatError} from "../../../components/errors/error"
+import {FatError} from "../../../../components/errors/error"
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 import AddTaskIcon from "@mui/icons-material/AddTask"
+import ReviewGame from "./review-game"
+
+const modalStyle = {
+    position: 'absolute',
+    display: 'block',
+    overflow: 'scroll',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    bgcolor: 'background.paper',
+    border: '1px solid #000',
+    borderRadius: "8px",
+    boxShadow: 24
+}
 
 function AdminGamesPage() {
     const navigate = useNavigate()
     const [error, setError] = useState<HttpError | null>(null)
     const [reqLoading, setReqLoading] = useState<{ [key: number]: boolean }>({})
     const [loading, setLoading] = useState(true)
+    const [reviewIndex, setReviewIndex] = useState<number | null>(null)
     const [games, setGames] = useState<GameListDto[]>([])
     const [paginationModel, setPaginationModel] = useState({
         pageSize: 20,
@@ -51,6 +67,13 @@ function AdminGamesPage() {
             })
     }, [])
 
+    const openGameReview = (gameId: number) => {
+        const index = games.findIndex(it => it.id === gameId)
+        setReviewIndex(index)
+    }
+    const closeGameReview = () => {
+        setReviewIndex(null)
+    }
 
     const approveGame = (gameId: number) => {
         setReqLoading({...open, [gameId]: true})
@@ -97,6 +120,18 @@ function AdminGamesPage() {
             })
     }
 
+    const approveStep = (index: number) => {
+        const game = games[index]
+        setReviewIndex(null)
+        if (game.state === GameState.PRE_APPROVAL) {
+            approveGame(game.id)
+        } else if (game.state === GameState.PRE_LISTING) {
+            approveListing(game.id)
+        } else if (game.state === GameState.PRE_RELEASE) {
+            approveRelease(game.id)
+        }
+    }
+
     const columns: GridColDef[] = [
         {field: 'id', headerName: 'ID', width: 90},
         {field: 'identifier', headerName: 'Identifier', width: 150},
@@ -113,14 +148,14 @@ function AdminGamesPage() {
                 let action
 
                 if (params.row.state >= GameState.APPROVED) {
-                    action = <CheckCircleOutlineIcon/>
+                    action = <CheckCircleOutlineIcon color="success"/>
                 } else if (params.row.state == GameState.PRE_APPROVAL) {
                     action = <Button
-                        onClick={() => approveGame(params.row.id)}>
+                        onClick={() => openGameReview(params.row.id)}>
                         {reqLoading[params.row.id] ? <CircularProgress color="inherit"/> : <AddTaskIcon/>}
                     </Button>
                 } else {
-                    action = <PendingIcon/>
+                    action = <PendingIcon color="action"/>
                 }
                 return action
             }
@@ -132,14 +167,14 @@ function AdminGamesPage() {
                 let action
 
                 if (params.row.state >= GameState.LISTED) {
-                    action = <CheckCircleOutlineIcon/>
+                    action = <CheckCircleOutlineIcon color="success"/>
                 } else if (params.row.state == GameState.PRE_LISTING) {
                     action = <Button
-                        onClick={() => approveListing(params.row.id)}>
+                        onClick={() => openGameReview(params.row.id)}>
                         {reqLoading[params.row.id] ? <CircularProgress color="inherit"/> : <AddTaskIcon/>}
                     </Button>
                 } else {
-                    action = <PendingIcon/>
+                    action = <PendingIcon color="action"/>
                 }
                 return action
             }
@@ -151,14 +186,14 @@ function AdminGamesPage() {
                 let action
 
                 if (params.row.state >= GameState.RELEASED) {
-                    action = <CheckCircleOutlineIcon/>
+                    action = <CheckCircleOutlineIcon color="success"/>
                 } else if (params.row.state == GameState.PRE_RELEASE) {
                     action = <Button
-                        onClick={() => approveRelease(params.row.id)}>
+                        onClick={() => openGameReview(params.row.id)}>
                         {reqLoading[params.row.id] ? <CircularProgress color="inherit"/> : <AddTaskIcon/>}
                     </Button>
                 } else {
-                    action = <PendingIcon/>
+                    action = <PendingIcon color="action"/>
                 }
                 return action
             }
@@ -168,7 +203,7 @@ function AdminGamesPage() {
             sortable: false, filterable: false, disableColumnMenu: true,
             renderCell: (params) => {
                 return <Button onClick={() => navigate(Path.PUBLIC_GAME.replace(":identifier", params.row.identifier.toString()))}>
-                    <PreviewIcon/>view
+                    <PreviewIcon/> view
                 </Button>
             }
         },
@@ -187,6 +222,26 @@ function AdminGamesPage() {
             loading={loading}
             autoHeight
         />
+        {isNotNull(reviewIndex) &&
+            <Dialog
+                open={isNotNull(reviewIndex)}
+                onClose={closeGameReview}
+                scroll={"paper"}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+                fullWidth
+                maxWidth="md"
+            >
+                <DialogTitle id="scroll-dialog-title">Verify information for {transformGameState(games[reviewIndex!].state + 1)}</DialogTitle>
+                <DialogContent dividers={true}>
+                    <ReviewGame gameId={games[reviewIndex!].id}/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeGameReview}>Cancel</Button>
+                    <Button variant="contained" onClick={() => approveStep(reviewIndex!)}>Approve</Button>
+                </DialogActions>
+            </Dialog>
+        }
     </Grid>
 }
 

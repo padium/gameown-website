@@ -31,6 +31,7 @@ function EditGamePage() {
                 navigate(Path.DASHBOARD_P_GAMES)
             })
     }, [id])
+
     const getGameState = (state: GameState) => {
         switch (state) {
             case GameState.BLOCKED:
