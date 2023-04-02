@@ -141,10 +141,10 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 />
             </Stack>
             <Stack direction="row">
-                <Typography variant="caption">Recommended size 350x350</Typography>
+                <Typography variant="caption">Recommended size 200x100</Typography>
             </Stack>
             <Stack direction="row">
-                {thumbnailUrl && <Media image={thumbnailUrl} width={175} height={175} sx={{marginBottom: "10px"}}/>}
+                {thumbnailUrl && <Media image={thumbnailUrl} width={200} height={100} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
         <Grid item xs={12}>
@@ -160,7 +160,7 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 <Typography variant="caption">Recommended size 600x400</Typography>
             </Stack>
             <Stack direction="row">
-                {mainUrl && <Media image={mainUrl} width={300} height={200} sx={{marginBottom: "10px"}}/>}
+                {mainUrl && <Media image={mainUrl} width={600} height={400} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
         <Grid item xs={12}>
@@ -189,7 +189,7 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 <Typography variant="caption">Recommended size 1400x300</Typography>
             </Stack>
             <Stack direction="row">
-                {bannerUrl && <Media image={bannerUrl} width={700} height={175} sx={{marginBottom: "10px"}}/>}
+                {bannerUrl && <Media image={bannerUrl} width={750} height={150} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
         <Grid item xs={124}>

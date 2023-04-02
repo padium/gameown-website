@@ -1,7 +1,7 @@
 import {Grid, Paper, Stack, Typography} from "@mui/material"
 import React from "react"
 import {GameDto} from "@padium/core"
-import Media from "../../core/media/media"
+import {GameFeatured} from "../../media/game-images"
 
 export interface GameProfileHeadProps {
     game: GameDto
@@ -25,7 +25,7 @@ export default function GameProfileHead(props: GameProfileHeadProps) {
         <Grid container sx={{marginTop: 5}}>
             <Grid item xs={7}>
                 <Stack alignItems="center" height={400}>
-                    <Media title={"hi"} image={game!.mainUrl} video={game!.mainVideoUrl} width={600} maxHeight={400}/>
+                    <GameFeatured image={game!.mainUrl} video={game!.mainVideoUrl}/>
                 </Stack>
             </Grid>
             <Grid item xs={5}>
