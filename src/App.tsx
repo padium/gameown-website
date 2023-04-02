@@ -1,9 +1,12 @@
 import {Suspense} from "react";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import routes from "./routes/routes";
+import {Box, CircularProgress} from "@mui/material"
 export default function App() {
     function loading() {
-        return <div className="animated fadeIn pt-1 text-center">Loading...</div>
+        return <Box alignItems="center" justifyContent="center" display="flex" width="100%" height="100%">
+            <CircularProgress />
+        </Box>
     }
 
     return <div className="App">
