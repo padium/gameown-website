@@ -52,8 +52,8 @@ export default function GameProfile(props: GameProfileProps) {
                 </Grid>
                 <Grid container sx={{marginTop: 5}}>
                     <Grid item xs={7}>
-                        <Stack alignItems="center">
-                            <Media image={game!.mainUrl} width={600} maxHeight={400}/>
+                        <Stack alignItems="center" height={400}>
+                            <Media title={"hi"} image={game!.mainUrl} video={game!.mainVideoUrl} width={600} maxHeight={400}/>
                         </Stack>
                     </Grid>
                     <Grid item xs={5}>

@@ -13,8 +13,8 @@ function GameProfilePage() {
     }
     return <Box sx={{backgroundColor: "#FBFBFA"}}>
         <GameProfile identifier={identifier!}/>
-        </Box>
+    </Box>
 }
 
-const page =() => <Profile content={<GameProfilePage/>}/>
+const page = () => <Profile content={<GameProfilePage/>}/>
 export default page
