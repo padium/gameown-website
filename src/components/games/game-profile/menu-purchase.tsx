@@ -18,7 +18,7 @@ export default function GameProfileMenuPurchase(props: GameProfileMenuPurchasePr
         </Grid>
         <Grid item xs={12}>
             <Stack direction='row' gap={1} alignItems="center" justifyContent="end">
-                {Number.parseFloat(price) == 0.0 ? <Typography variant="h4">Free</Typography> : <Typography variant="h4">{price} $</Typography>}
+                {Number.parseFloat(price) == 0.0 ? <Typography variant="h4">Free to Play</Typography> : <Typography variant="h4">{price} $</Typography>}
                 <Button><AddShoppingCartIcon/>Add to cart</Button>
             </Stack>
         </Grid>
