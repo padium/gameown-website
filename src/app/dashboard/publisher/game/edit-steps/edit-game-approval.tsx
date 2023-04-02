@@ -7,6 +7,7 @@ import {GameDto} from "@padium/core"
 import TwitterIcon from "@mui/icons-material/Twitter"
 import LanguageIcon from "@mui/icons-material/Language"
 import ImageIcon from "@mui/icons-material/Image"
+import Media from "../../../../../components/core/media/media"
 
 export default function EditGameApproval(props: { game: GameDto, onSubmit: (game: GameDto) => void }) {
     const game = props.game
@@ -18,6 +19,7 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
     const [twitterUrl, setTwitterUrl] = useState<string | null>(game.twitterUrl)
     const [thumbnailUrl, setThumbnailUrl] = useState(game.thumbnailUrl)
     const [mainUrl, setMainUrl] = useState(game.mainUrl)
+    const [mainVideoUrl, setMainVideoUrl] = useState(game.mainVideoUrl)
     const [bannerUrl, setBannerUrl] = useState(game.bannerUrl)
     const [tags, setTags] = useState(game.tags)
 
@@ -142,7 +144,7 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 <Typography variant="caption">Recommended size 350x350</Typography>
             </Stack>
             <Stack direction="row">
-                {thumbnailUrl && <img src={thumbnailUrl} width={175} height={175} alt="preview" style={{marginBottom: "10px"}}/>}
+                {thumbnailUrl && <Media image={thumbnailUrl} width={175} height={175} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
         <Grid item xs={12}>
@@ -158,7 +160,20 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 <Typography variant="caption">Recommended size 600x400</Typography>
             </Stack>
             <Stack direction="row">
-                {mainUrl && <img src={mainUrl} width={300} height={200} alt="preview" style={{marginBottom: "10px"}}/>}
+                {mainUrl && <Media image={mainUrl} width={300} height={200} sx={{marginBottom: "10px"}}/>}
+            </Stack>
+        </Grid>
+        <Grid item xs={12}>
+            <Stack direction="row" alignItems="center">
+                <ImageIcon/>
+                <TextField
+                    label="Video URL"
+                    sx={{margin: "10px"}}
+                    value={mainVideoUrl} onChange={(e) => setMainVideoUrl(e.target.value)}
+                />
+            </Stack>
+            <Stack direction="row">
+                {mainVideoUrl && <Media video={mainVideoUrl} width={600} height={400} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
         <Grid item xs={12}>
@@ -174,7 +189,7 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 <Typography variant="caption">Recommended size 1400x300</Typography>
             </Stack>
             <Stack direction="row">
-                {bannerUrl && <img src={bannerUrl} width={700} height={175} alt="preview" style={{marginBottom: "10px"}}/>}
+                {bannerUrl && <Media image={bannerUrl} width={700} height={175} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
         <Grid item xs={124}>

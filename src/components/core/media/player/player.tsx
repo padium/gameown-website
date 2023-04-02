@@ -5,6 +5,8 @@ import ReactPlayer, { ReactPlayerProps } from 'react-player'
 import PlayerControls from './player.controls'
 import PlayerOverlay from './player.overlay'
 import { INITIAL_STATE, reducer } from './player.reducer'
+import {SxProps} from "@mui/system"
+import {Theme} from "@mui/material/styles"
 
 const StyledPlayer = styled('div')<ReactPlayerProps>`
   position: relative;
@@ -41,6 +43,7 @@ export interface PlayerProps {
     height?: number | string
     title?: string
     videoUrl: string
+    sx?: SxProps<Theme>
 }
 
 export default function Player(props: PlayerProps) {
@@ -76,7 +79,7 @@ export default function Player(props: PlayerProps) {
     }
 
     return (
-        <StyledPlayer state={state} ref={wrapperRef}>
+        <StyledPlayer state={state} ref={wrapperRef} sx={props.sx}>
             <ReactPlayer
                 ref={playerRef}
                 url={videoUrl}
