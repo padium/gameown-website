@@ -72,10 +72,12 @@ function EditGamePage() {
             availableAt: game.availableAt?.toISOString() || null
         }
     }
-    const submitApproval = async (game: GameDto) => {
+    const submitApproval = async (game: GameDto, requestApproval: boolean) => {
         await handleAuth(() => apiClient.game.update(game.id, prepareRequest(game)))
-        await handleAuth(() => apiClient.game.requestApproval(game.id))
-        setActiveStep(3)
+        if (requestApproval) {
+            await handleAuth(() => apiClient.game.requestApproval(game.id))
+            setActiveStep(3)
+        }
     }
 
     const submitListing = async (game: GameDto) => {
@@ -94,28 +96,8 @@ function EditGamePage() {
         return skipped.has(step)
     }
 
-    const handleNext = () => {
-        let newSkipped = skipped
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values())
-            newSkipped.delete(activeStep)
-        }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-        setSkipped(newSkipped)
-    }
-
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
-    }
-
-    const handleSkip = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-        setSkipped((prevSkipped) => {
-            const newSkipped = new Set(prevSkipped.values())
-            newSkipped.add(activeStep)
-            return newSkipped
-        })
     }
 
     if (loading) {

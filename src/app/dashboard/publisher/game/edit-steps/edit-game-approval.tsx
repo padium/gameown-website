@@ -9,7 +9,11 @@ import LanguageIcon from "@mui/icons-material/Language"
 import ImageIcon from "@mui/icons-material/Image"
 import Media from "../../../../../components/core/media/media"
 
-export default function EditGameApproval(props: { game: GameDto, onSubmit: (game: GameDto) => void }) {
+export interface EditGameApprovalProps {
+    game: GameDto,
+    onSubmit: (game: GameDto, requestApproval: boolean) => void
+}
+export default function EditGameApproval(props: EditGameApprovalProps) {
     const game = props.game
     const [name, setName] = useState(game.name)
     const [identifier, setIdentifier] = useState(game.identifier)
@@ -26,7 +30,8 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
     const isNotValid = (): boolean => {
         return isEmpty(name) || isEmpty(header) || isEmpty(description) || isEmpty(thumbnailUrl) || isEmpty(mainUrl) || isEmpty(bannerUrl) || isEmpty(tags)
     }
-    const handleSubmit = async () => {
+
+    const handleSave = async () => {
         props.onSubmit({
             ...game,
             name,
@@ -39,7 +44,23 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
             mainUrl,
             bannerUrl,
             tags
-        })
+        }, false)
+    }
+
+    const handleRequestApproval = async () => {
+        props.onSubmit({
+            ...game,
+            name,
+            identifier,
+            header,
+            description,
+            websiteUrl,
+            twitterUrl,
+            thumbnailUrl,
+            mainUrl,
+            bannerUrl,
+            tags
+        }, true)
     }
 
     const splitTags = (): string[] => {
@@ -192,11 +213,20 @@ export default function EditGameApproval(props: { game: GameDto, onSubmit: (game
                 {bannerUrl && <Media image={bannerUrl} width={750} height={150} sx={{marginBottom: "10px"}}/>}
             </Stack>
         </Grid>
-        <Grid item xs={124}>
+        <Grid item xs={12}>
+            <Button
+                fullWidth
+                variant="outlined"
+                onClick={handleSave}
+                disabled={isNotValid()}
+                sx={{marginTop: "20px"}}
+            >
+                Save
+            </Button>
             <Button
                 fullWidth
                 variant="contained"
-                onClick={handleSubmit}
+                onClick={handleRequestApproval}
                 disabled={isNotValid()}
                 sx={{marginTop: "20px"}}
             >
