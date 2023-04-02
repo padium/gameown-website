@@ -19,8 +19,8 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
     const [identifier, setIdentifier] = useState(game.identifier)
     const [header, setHeader] = useState(game.header)
     const [description, setDescription] = useState(game.description)
-    const [websiteUrl, setWebsiteUrl] = useState<string | null>(game.websiteUrl)
-    const [twitterUrl, setTwitterUrl] = useState<string | null>(game.twitterUrl)
+    const [websiteUrl, setWebsiteUrl] = useState<string>(game.websiteUrl || "")
+    const [twitterUrl, setTwitterUrl] = useState<string>(game.twitterUrl || "")
     const [thumbnailUrl, setThumbnailUrl] = useState(game.thumbnailUrl)
     const [mainUrl, setMainUrl] = useState(game.mainUrl)
     const [mainVideoUrl, setMainVideoUrl] = useState(game.mainVideoUrl)
@@ -38,8 +38,8 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
             identifier,
             header,
             description,
-            websiteUrl,
-            twitterUrl,
+            websiteUrl: isEmpty(websiteUrl) ? null : websiteUrl,
+            twitterUrl: isEmpty(twitterUrl) ? null : twitterUrl,
             thumbnailUrl,
             mainUrl,
             bannerUrl,
@@ -100,7 +100,7 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
                 value={identifier}
             />
         </Grid>
-        <Grid container xs={12}>
+        <Grid container>
             <Grid item xs={6}>
                 <Typography>Header description:</Typography>
                 <TextField
@@ -126,7 +126,7 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
                 previewWidth="100%"
             />
         </Grid>
-        <Grid container xs={12}>
+        <Grid container>
             <Grid item xs={4}>
                 <Typography sx={{marginTop: "20px"}}>Game categories:</Typography>
                 <InputTags value={splitTags()} onChange={(tags) => setTags(tags.join("#"))}/>

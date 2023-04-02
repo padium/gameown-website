@@ -10,6 +10,7 @@ import EditGameApproval from "./edit-steps/edit-game-approval"
 import EditGameListing from "./edit-steps/edit-game-listing"
 import EditGameRelease from "./edit-steps/edit-game-release"
 import handleAuth from "../../../../utils/auth/auth-refresh"
+import {isNotNull} from "@d-lab/common-kit"
 
 function EditGamePage() {
     const {id} = useParams()
@@ -69,7 +70,7 @@ function EditGamePage() {
             price: game.price,
             downloadUrl: game.downloadUrl,
             ingamePayment: game.ingamePayment,
-            availableAt: game.availableAt?.toISOString() || null
+            availableAt: isNotNull(game.availableAt) ? new Date(game.availableAt!).toISOString() : null
         }
     }
     const submitApproval = async (game: GameDto, requestApproval: boolean) => {
@@ -97,7 +98,7 @@ function EditGamePage() {
     }
 
     const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+        setActiveStep((prevActiveStep) => prevActiveStep - 2)
     }
 
     if (loading) {
@@ -113,6 +114,7 @@ function EditGamePage() {
         <EditGameRelease game={game!} onSubmit={submitRelease} onBack={handleBack}/>,
         <Typography>We are working on your request, please wait for your release approval.</Typography>,
     ]
+
     return <Grid container>
         <Grid item xs={12} sx={{marginBottom: "20px"}}>
             <Stepper activeStep={activeStep / 2}>

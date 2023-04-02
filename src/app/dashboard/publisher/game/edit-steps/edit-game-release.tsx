@@ -1,19 +1,19 @@
 import React, {useState} from "react"
-import {Button, Checkbox, FormControlLabel, Grid, Stack, TextField, Typography} from "@mui/material"
+import {Button, Checkbox, Grid, Stack, TextField, Typography} from "@mui/material"
 import {GameDto} from "@padium/core"
-import {isNull} from "@d-lab/common-kit"
+import {isEmpty} from "@d-lab/common-kit"
 
 export default function EditGameRelease(props: { game: GameDto, onSubmit: (game: GameDto) => void, onBack: () => void }) {
     const game = props.game
-    const [downloadUrl, setDownloadUrl] = useState<string | null>(game.downloadUrl)
+    const [downloadUrl, setDownloadUrl] = useState<string>(game.downloadUrl || "")
     const [ingamePayment, setIngamePayment] = useState(game.ingamePayment)
     const isNotValid = (): boolean => {
-        return isNull(downloadUrl) || isNull(ingamePayment)
+        return isEmpty(downloadUrl) || isEmpty(ingamePayment)
     }
     const handleSubmit = async () => {
         props.onSubmit({
             ...game,
-            downloadUrl,
+            downloadUrl: isEmpty(downloadUrl) ? null : downloadUrl,
             ingamePayment
         })
     }

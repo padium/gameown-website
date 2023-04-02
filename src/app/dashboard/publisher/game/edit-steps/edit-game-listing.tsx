@@ -1,18 +1,19 @@
 import React, {useState} from "react"
 import {Button, Grid, Stack, TextField, Typography} from "@mui/material"
 import {GameDto} from "@padium/core"
-import {isNull} from "@d-lab/common-kit"
+import {isEmpty} from "@d-lab/common-kit"
+import {format} from "date-fns"
 
-export default function EditGameListing(props: { game: GameDto, onSubmit: (game: GameDto) => void, onBack: () => void}) {
+export default function EditGameListing(props: { game: GameDto, onSubmit: (game: GameDto) => void, onBack: () => void }) {
     const game = props.game
     const [option, setOption] = useState(0)
-    const [price, setPrice] = useState<string | null>(game.price)
-    const [availableAt, setAvailableAt] = useState<string | null>(game.availableAt?.toISOString() || new Date().toISOString())
+    const [price, setPrice] = useState<string>(game.price || "")
+    const [availableAt, setAvailableAt] = useState<string>(format(new Date(game.availableAt || new Date()), 'yyyy-MM-dd'))
 
     const isNotValid = (): boolean => {
         switch (option) {
             case 1:
-                return isNull(price) || isNull(availableAt)
+                return isEmpty(price) || isEmpty(availableAt)
             case 2:
                 return true
             case 3:
@@ -24,8 +25,8 @@ export default function EditGameListing(props: { game: GameDto, onSubmit: (game:
     const handleSubmit = async () => {
         props.onSubmit({
             ...game,
-            price,
-            availableAt: availableAt ? new Date(availableAt) : null
+            price: isEmpty(price) ? null : price,
+            availableAt: isEmpty(availableAt) ? null : new Date(availableAt)
         })
     }
 
@@ -35,6 +36,7 @@ export default function EditGameListing(props: { game: GameDto, onSubmit: (game:
         <Button onClick={() => setOption(3)} disabled={true}>Crowdfunding</Button>
     </Stack>
 
+    console.log("date: ", availableAt)
     const menu = [
         options,
         <>
@@ -74,7 +76,7 @@ export default function EditGameListing(props: { game: GameDto, onSubmit: (game:
 
     return <Grid container>
         {menu[option]}
-        {option != 0 && <Grid item xs={12}>
+        <Grid item xs={12}>
             <Button
                 fullWidth
                 variant="contained"
@@ -82,7 +84,7 @@ export default function EditGameListing(props: { game: GameDto, onSubmit: (game:
             >
                 Back
             </Button>
-            <Button
+            {option != 0 && <Button
                 fullWidth
                 variant="contained"
                 onClick={handleSubmit}
@@ -90,7 +92,7 @@ export default function EditGameListing(props: { game: GameDto, onSubmit: (game:
                 sx={{marginTop: "20px"}}
             >
                 Apply for Game Listing
-            </Button>
-        </Grid>}
+            </Button>}
+        </Grid>
     </Grid>
 }
