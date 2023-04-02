@@ -37,7 +37,6 @@ export default function Media(props: MediaProps) {
     if (isNotNull(props.video)) {
         return <Player thumbnail={props.image || true} videoUrl={props.video!} width={dimensions.width} height={dimensions.height} sx={props.sx}/>
     } else {
-        console.log("style: ", dimensions)
         return <img src={props.image} alt="image" style={{...props.sx, ...dimensions}}/>
     }
 }
