@@ -1,4 +1,4 @@
-import Media from "../core/media/media"
+import Media from "../../core/media/media"
 import React from "react"
 import {SxProps} from "@mui/system"
 import {Theme} from "@mui/material/styles"

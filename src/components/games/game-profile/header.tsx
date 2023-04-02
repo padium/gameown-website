@@ -1,7 +1,7 @@
 import {Grid, Paper, Stack, Typography} from "@mui/material"
 import React from "react"
 import {GameDto} from "@padium/core"
-import {GameFeatured} from "../../media/game-images"
+import {GameFeatured} from "../media/game-images"
 
 export interface GameProfileHeadProps {
     game: GameDto
