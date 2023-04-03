@@ -23,7 +23,7 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
     const [twitterUrl, setTwitterUrl] = useState<string>(game.twitterUrl || "")
     const [thumbnailUrl, setThumbnailUrl] = useState(game.thumbnailUrl)
     const [mainUrl, setMainUrl] = useState(game.mainUrl)
-    const [mainVideoUrl, setMainVideoUrl] = useState(game.mainVideoUrl)
+    const [mainVideoUrl, setMainVideoUrl] = useState(game.mainVideoUrl || "")
     const [bannerUrl, setBannerUrl] = useState(game.bannerUrl)
     const [tags, setTags] = useState(game.tags)
 
@@ -42,6 +42,7 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
             twitterUrl: isEmpty(twitterUrl) ? null : twitterUrl,
             thumbnailUrl,
             mainUrl,
+            mainVideoUrl: isEmpty(mainVideoUrl) ? null : mainVideoUrl,
             bannerUrl,
             tags
         }, false)
@@ -58,6 +59,7 @@ export default function EditGameApproval(props: EditGameApprovalProps) {
             twitterUrl,
             thumbnailUrl,
             mainUrl,
+            mainVideoUrl: isEmpty(mainVideoUrl) ? null : mainVideoUrl,
             bannerUrl,
             tags
         }, true)
