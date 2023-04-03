@@ -31,7 +31,7 @@ export default function GameList() {
         } else if (Number.parseFloat(price!) == 0.0) {
             return <Typography variant="h6">Free to Play</Typography>
         } else {
-            return <Typography variant="h6">{price} $</Typography>
+            return <Typography variant="h6">$ {price}</Typography>
         }
     }
 
