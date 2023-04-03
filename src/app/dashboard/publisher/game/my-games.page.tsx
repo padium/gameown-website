@@ -21,7 +21,7 @@ function MyGamesPage() {
     const [paginationModel, setPaginationModel] = useState({
         pageSize: 20,
         page: 0,
-    });
+    })
 
     useEffect(() => {
         handleAuth(() => apiClient.publisher.findGames({page: "0", pageSize: "100"}))

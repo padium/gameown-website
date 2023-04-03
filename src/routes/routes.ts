@@ -19,6 +19,6 @@ const routes: RoutePath[] = [
     ...routesMarket,
     ...routesCommunity,
     ...routesProfile,
-];
+]
 
 export default routes

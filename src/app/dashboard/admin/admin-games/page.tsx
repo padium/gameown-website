@@ -10,7 +10,7 @@ import apiClient from "../../../../clients/padium.client"
 import {DataGrid, GridColDef, GridValueGetterParams} from "@mui/x-data-grid"
 import {transformGameState} from "../../../../utils/pretify/game-state.pretify"
 import {Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material"
-import PendingIcon from '@mui/icons-material/Pending';
+import PendingIcon from '@mui/icons-material/Pending'
 import PreviewIcon from "@mui/icons-material/Preview"
 import {HttpError, isNotNull} from "@d-lab/common-kit"
 import {FatError} from "../../../../components/errors/error"
@@ -42,7 +42,7 @@ function AdminGamesPage() {
     const [paginationModel, setPaginationModel] = useState({
         pageSize: 20,
         page: 0,
-    });
+    })
 
     useEffect(() => {
         handleAuth(() => ssoClient.role.me())

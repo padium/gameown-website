@@ -1,4 +1,4 @@
-import UserSession from "../storage/user-session";
+import UserSession from "../storage/user-session"
 
 export default class AuthUtils {
 

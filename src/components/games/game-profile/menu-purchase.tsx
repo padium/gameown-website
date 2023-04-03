@@ -1,6 +1,6 @@
 import {Button, Grid, Stack, Typography} from "@mui/material"
 import React from "react"
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
 export interface GameProfileMenuPurchaseProps {
     name: string

@@ -3,9 +3,9 @@ import Profile from "../page"
 import {isNotEmpty, isNotNull} from "@d-lab/common-kit"
 import Loading from "../../../components/dashboard/loading"
 import {Box, Container, Grid, Tab, Tabs} from "@mui/material"
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext'
+import TabList from '@mui/lab/TabList'
+import TabPanel from '@mui/lab/TabPanel'
 import React, {useEffect, useState} from "react"
 import handleAuth from "../../../utils/auth/auth-refresh"
 import apiClient from "../../../clients/padium.client"
@@ -41,8 +41,8 @@ function GameProfilePage() {
     }
 
     const handleMenuChange = (event: React.SyntheticEvent, newValue: string) => {
-        setCurrentTab(newValue);
-    };
+        setCurrentTab(newValue)
+    }
 
     return <Box sx={{backgroundColor: "#FBFBFA"}}>
         <GameProfileBanner bannerUrl={game!.bannerUrl}/>

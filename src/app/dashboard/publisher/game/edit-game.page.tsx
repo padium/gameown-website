@@ -119,18 +119,18 @@ function EditGamePage() {
         <Grid item xs={12} sx={{marginBottom: "20px"}}>
             <Stepper activeStep={activeStep / 2}>
                 {labels.map((label, index) => {
-                    const stepProps: { completed?: boolean } = {};
+                    const stepProps: { completed?: boolean } = {}
                     const labelProps: {
-                        optional?: React.ReactNode;
-                    } = {};
+                        optional?: React.ReactNode
+                    } = {}
                     if (isStepSkipped(index)) {
-                        stepProps.completed = false;
+                        stepProps.completed = false
                     }
                     return (
                         <Step key={label} {...stepProps}>
                             <StepLabel {...labelProps}>{label}</StepLabel>
                         </Step>
-                    );
+                    )
                 })}
             </Stepper>
         </Grid>

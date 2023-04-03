@@ -4,11 +4,11 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import PaymentIcon from '@mui/icons-material/Payment'
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import BusinessIcon from '@mui/icons-material/Business';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports'
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
+import BusinessIcon from '@mui/icons-material/Business'
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'
+import SmartToyIcon from '@mui/icons-material/SmartToy'
 
 export const menu: MenuCategory[] = [
     {

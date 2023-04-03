@@ -2,7 +2,7 @@ import {Button} from "@mui/material"
 import {useNavigate} from "react-router"
 
 export default function Page404() {
-    let navigate = useNavigate();
+    let navigate = useNavigate()
 
     return <div className="content">
         <div className="container-fluid">

@@ -26,7 +26,7 @@ export default function SignIn() {
         await ssoClient.auth.login(request)
         setSubmit(false)
         navigate(Path.HOME)
-    };
+    }
 
     return (
         <Container className="mt-2" maxWidth="xs">

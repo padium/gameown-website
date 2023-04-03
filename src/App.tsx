@@ -1,6 +1,6 @@
-import {Suspense} from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import routes from "./routes/routes";
+import {Suspense} from "react"
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom"
+import routes from "./routes/routes"
 import {Box, CircularProgress} from "@mui/material"
 export default function App() {
     function loading() {
@@ -23,7 +23,7 @@ export default function App() {
                                         <route.component/> :
                                         <Navigate to={{pathname: route.restrictedBy.redirectOnFailure}} replace/>)
                                 }/>
-                        ) : null;
+                        ) : null
                     })}
                     <Route path="*" element={<Navigate to="/404" replace/>}/>
                 </Routes>

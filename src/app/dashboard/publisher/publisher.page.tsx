@@ -7,8 +7,8 @@ import {isEmpty, isNotNull} from "@d-lab/common-kit"
 import MarkdownEditor from "@uiw/react-markdown-editor"
 import Loading from "../../../components/dashboard/loading"
 import TwitterIcon from '@mui/icons-material/Twitter'
-import LanguageIcon from '@mui/icons-material/Language';
-import ImageIcon from '@mui/icons-material/Image';
+import LanguageIcon from '@mui/icons-material/Language'
+import ImageIcon from '@mui/icons-material/Image'
 import handleAuth from "../../../utils/auth/auth-refresh"
 
 function PublisherPage() {
