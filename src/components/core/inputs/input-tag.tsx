@@ -34,6 +34,7 @@ export default function InputTags(props: { value: string[], onChange: (tags: str
     const handleDelete = (value: string) => {
         const newTags = tags.filter((val) => val !== value)
         setTags(newTags)
+        props.onChange(newTags)
     }
 
     const handleOnSubmit = (e: { preventDefault: () => void }) => {
