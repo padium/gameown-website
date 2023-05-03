@@ -35,7 +35,7 @@ function GameProfilePage() {
 
     let menu: JSX.Element
     if (isNotNull(game?.price)) {
-        menu = <GameProfileMenuPurchase name={game!.name} price={game!.price!}/>
+        menu = <GameProfileMenuPurchase gameId={game!.id} name={game!.name} price={game!.price!}/>
     } else {
         menu = <GameProfileMenuWaitlist name={game!.name}/>
     }
