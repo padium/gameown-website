@@ -10,6 +10,6 @@ function setSession(jwt: string, refreshToken: string, user: TokenUser) {
     UserSession.storeSession({jwt, refreshToken, user})
 }
 
-const ssoClient = new Client(false, undefined, getSession, setSession)
+const ssoClient = new Client(process.env.REACT_APP_ENV === "production", undefined, getSession, setSession)
 
 export default ssoClient
