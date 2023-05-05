@@ -138,7 +138,7 @@ function AdminGamesPage() {
         {field: 'name', headerName: 'Name', width: 150},
         {field: 'verified', headerName: 'Verified', width: 90},
         {
-            field: 'state', headerName: 'State', width: 150,
+            field: 'state', headerName: 'State', width: 90,
             valueGetter: (params: GridValueGetterParams) => transformGameState(params.row.state)
         },
         {
