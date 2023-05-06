@@ -1,0 +1,52 @@
+name: Testnet CI & CD
+
+on:
+  push:
+    branches: [testnet]
+
+jobs:
+  build:
+    name: ci-testnet
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test
+
+  deploy:
+    name: cd-testnet
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          passphrase: ${{ secrets.PRIVATE_PASSPHRASE }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd /home/dlab/apps/gameown-core-testnet
+            git checkout testnet
+            git pull
+            npm ci
+            npm run build --if-present
+            echo "" > .env
+            echo "PORT=${{ secrets.APP_PORT_TEST }}" >> .env
+            echo "REACT_APP_ENV=${{ secrets.APP_ENV_TEST }}"" >> .env
+            pm2 stop gameown-core-testnet
+            pm2 delete gameown-core-testnet
+            pm2 --name "gameown-core-testnet" serve --spa build secrets.APP_PORT_TEST
