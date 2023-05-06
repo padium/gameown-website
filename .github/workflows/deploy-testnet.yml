@@ -38,7 +38,7 @@ jobs:
           passphrase: ${{ secrets.PRIVATE_PASSPHRASE }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            cd /home/dlab/apps/gameown-core-testnet
+            cd /home/dlab/apps/gameown-website-testnet
             git checkout testnet
             git pull
             npm ci
@@ -46,6 +46,6 @@ jobs:
             echo "" > .env
             echo "PORT=${{ secrets.APP_PORT_TEST }}" >> .env
             echo "REACT_APP_ENV=${{ secrets.APP_ENV_TEST }}"" >> .env
-            pm2 stop gameown-core-testnet
-            pm2 delete gameown-core-testnet
-            pm2 --name "gameown-core-testnet" serve --spa build secrets.APP_PORT_TEST
+            pm2 stop gameown-website-testnet
+            pm2 delete gameown-website-testnet
+            pm2 --name "gameown-website-testnet" serve --spa build secrets.APP_PORT_TEST

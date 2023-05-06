@@ -47,4 +47,4 @@ jobs:
             echo "REACT_APP_ENV=${{ secrets.APP_ENV }}"" >> .env
             pm2 stop gameown-website
             pm2 delete gameown-website
-            pm2 --name "gameown-core" serve --spa build secrets.APP_PORT
+            pm2 --name "gameown-website" serve --spa build secrets.APP_PORT
