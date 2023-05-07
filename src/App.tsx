@@ -10,7 +10,7 @@ export default function App() {
     }
 
     return <div className="App">
-        <BrowserRouter>
+        <BrowserRouter basename={"gameown-website"}>
             <Suspense fallback={loading()}>
                 <Routes>
                     {routes.map((route, idx) => {
