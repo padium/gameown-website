@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgameown_website=self.webpackChunkgameown_website||[]).push([[4054],{74054:function(e,n,t){t.r(n),t.d(n,{default:function(){return i}});var u=t(80184);function i(){return(0,u.jsx)("div",{children:(0,u.jsx)("main",{})})}}}]);
+//# sourceMappingURL=4054.d307bc65.chunk.js.map

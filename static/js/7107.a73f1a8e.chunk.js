@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgameown_website=self.webpackChunkgameown_website||[]).push([[7107],{27107:function(n,e,i){i.r(e),i.d(e,{default:function(){return c}});var s=i(36151),r=i(57689),t=i(80184);function c(){var n=(0,r.s0)();return(0,t.jsx)("div",{className:"content",children:(0,t.jsxs)("div",{className:"container-fluid",children:[(0,t.jsx)("h2",{children:"Oups you are lost"}),(0,t.jsx)(s.Z,{variant:"outlined",onClick:function(){return n("/")},children:"Bring me back"})]})})}}}]);
+//# sourceMappingURL=7107.a73f1a8e.chunk.js.map
