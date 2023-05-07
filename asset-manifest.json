@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/gameown-website/static/css/main.7dac7b56.css",
-    "main.js": "/gameown-website/static/js/main.0bafcd7e.js",
+    "main.js": "/gameown-website/static/js/main.3f3f5b0f.js",
     "static/css/7427.31d6cfe0.chunk.css": "/gameown-website/static/css/7427.31d6cfe0.chunk.css",
     "static/js/7427.0c0f3e46.chunk.js": "/gameown-website/static/js/7427.0c0f3e46.chunk.js",
     "static/js/7107.a73f1a8e.chunk.js": "/gameown-website/static/js/7107.a73f1a8e.chunk.js",
@@ -177,7 +177,7 @@
     "index.html": "/gameown-website/index.html",
     "static/media/javascript,__webpack_public_path__ = __webpack_base_uri__ = htmlWebpackPluginPublicPath;": "/gameown-website/static/media/.1feff74faaf0efc6a044",
     "main.7dac7b56.css.map": "/gameown-website/static/css/main.7dac7b56.css.map",
-    "main.0bafcd7e.js.map": "/gameown-website/static/js/main.0bafcd7e.js.map",
+    "main.3f3f5b0f.js.map": "/gameown-website/static/js/main.3f3f5b0f.js.map",
     "7427.0c0f3e46.chunk.js.map": "/gameown-website/static/js/7427.0c0f3e46.chunk.js.map",
     "7107.a73f1a8e.chunk.js.map": "/gameown-website/static/js/7107.a73f1a8e.chunk.js.map",
     "3627.afdda7ba.chunk.js.map": "/gameown-website/static/js/3627.afdda7ba.chunk.js.map",
@@ -344,6 +344,6 @@
   },
   "entrypoints": [
     "static/css/main.7dac7b56.css",
-    "static/js/main.0bafcd7e.js"
+    "static/js/main.3f3f5b0f.js"
   ]
 }
