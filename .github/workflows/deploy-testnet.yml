@@ -46,7 +46,7 @@ jobs:
           REACT_APP_ENV: ${{ secrets.APP_ENV_TEST }}
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-testnet # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
